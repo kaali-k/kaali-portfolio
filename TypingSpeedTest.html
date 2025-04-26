@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Typing Speed Test - Kalana Sahan Dillimuni</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            /* Background and text color are handled by Tailwind classes on body */
+            line-height: 1.6;
+        }
+
+         /* Custom gradient text (if needed elsewhere, keeping for consistency) */
+ .text-gradient {
+background: linear-gradient(90deg, #ff416c, #ff4b2b); /* Example gradient */
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+ background-clip: text;
+ text-fill-color: transparent;
+ }
+        .section-divider {
+ height: 2px;
+ background: linear-gradient(90deg, #ff416c, #ff4b2b);
+ width: 80px;
+ margin: 1rem auto 2rem auto; /* Centered divider */
+ }
+
+        /* Styles for character highlighting */
+        .correct {
+            color: #4CAF50; /* Green */
+        }
+        .incorrect {
+            color: #F44336; /* Red */
+            text-decoration: underline; /* Underline incorrect characters */
+        }
+         /* Style for the displayText container to ensure spaces are handled */
+         #displayText {
+             white-space: pre-wrap; /* Preserve spaces and wrap text */
+             word-break: break-word; /* Break long words */
+         }
+         /* Ensure spans themselves are inline elements */
+         #displayText span {
+             display: inline-block; /* Or just inline, but inline-block can sometimes help with spacing */
+             min-width: 5px; /* Give tiny width to space spans if needed */
+         }
+
+
+    </style>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: '#d63031', // Your red
+              secondary: '#ff4b2b', // A complementary orange/red
+              darkbg: '#1a1a1a',
+              lighttext: '#e0e0e0',
+              cardbg: '#2a2a2a',
+            }
+          }
+        }
+      }
+    </script>
+</head>
+<body class="bg-darkbg text-lighttext" x-data="{ mobileMenuOpen: false }">
+
+    <header class="fixed w-full top-0 z-50 transition-all duration-300"
+            :class="{ 'bg-black/80 backdrop-blur-md shadow-lg': window.scrollY > 50, 'bg-transparent': window.scrollY <= 50 }"
+            @scroll.window="window.scrollY > 50 ? true : false">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center max-w-7xl">
+            <a href="index.html" class="text-2xl font-bold text-primary hover:text-secondary transition duration-300">K.S.D</a>
+
+            <ul class="hidden md:flex space-x-8 items-center">
+                <li><a href="index.html" class="hover:text-primary transition duration-300 font-medium">Home</a></li>
+                <li><a href="projects.html" class="text-white bg-gradient-to-r from-primary to-secondary py-2 px-5 rounded-full hover:opacity-90 transition duration-300 font-semibold">Projects</a></li>
+                 <li><a href="index.html#about" class="hover:text-primary transition duration-300 font-medium">About</a></li>
+                 <li><a href="index.html#skills" class="hover:text-primary transition duration-300 font-medium">Skills</a></li>
+                 <li><a href="index.html#contact" class="hover:text-primary transition duration-300 font-medium">Contact</a></li>
+            </ul>
+
+            <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden focus:outline-none text-lighttext hover:text-primary text-2xl z-50">
+                <i :class="mobileMenuOpen ? 'fas fa-times' : 'fas fa-bars'"></i>
+            </button>
+        </nav>
+    </header>
+
+    <div x-show="mobileMenuOpen"
+         x-transition:enter="transition ease-out duration-300"
+         x-transition:enter-start="opacity-0 transform -translate-y-full"
+         x-transition:enter-end="opacity-100 transform translate-y-0"
+         x-transition:leave="transition ease-in duration-200"
+         x-transition:leave-start="opacity-100 transform translate-y-0"
+         x-transition:leave-end="opacity-0 transform -translate-y-full"
+         class="fixed inset-0 bg-black/95 z-40 flex flex-col items-center justify-center space-y-6 md:hidden"
+         @click.away="mobileMenuOpen = false">
+            <a href="index.html" @click="mobileMenuOpen = false" class="text-2xl hover:text-primary transition duration-300">Home</a>
+            <a href="projects.html" @click="mobileMenuOpen = false" class="text-2xl text-white bg-gradient-to-r from-primary to-secondary py-2 px-5 rounded-full hover:opacity-90 transition duration-300 font-semibold">Projects</a>
+             <a href="index.html#about" @click="mobileMenuOpen = false" class="text-2xl hover:text-primary transition duration-300">About</a>
+             <a href="index.html#skills" @click="mobileMenuOpen = false" class="text-2xl hover:text-primary transition duration-300">Skills</a>
+            <a href="index.html#contact" @click="mobileMenuOpen = false" class="text-2xl hover:text-primary transition duration-300">Contact</a>
+    </div>
+
+    <main class="py-20 pt-32 md:pt-40 flex justify-center items-center min-h-screen"> <section id="typing-test-project" class="container mx-auto px-6 max-w-6xl flex justify-center items-center">
+            <div class="w-full max-w-2xl" data-aos="zoom-in" data-aos-delay="200"> <h2 class="text-3xl md:text-4xl font-bold text-white text-center mb-2" data-aos="fade-up">Typing Speed Master</h2> <div class="section-divider" data-aos="fade-up" data-aos-delay="100"></div>
+                <p class="text-center text-gray-400 mb-8 max-w-xl mx-auto" data-aos="fade-up" data-aos-delay="150">Test and improve your typing speed and accuracy!</p>
+
+                <div class="typing-container bg-cardbg rounded-lg shadow-xl border border-primary/20 p-8">
+
+                    <div class="flex flex-col md:flex-row gap-6 mb-6">
+                        <div class="w-full md:w-1/2">
+                            <label for="languageSelect" class="block text-lighttext font-medium mb-2">Select Language:</label>
+                            <select id="languageSelect" class="w-full p-3 border-2 border-gray-600 rounded-md bg-gray-700 text-lighttext focus:outline-none focus:ring-2 focus:ring-primary">
+                                <option value="english">English</option>
+                                <option value="sinhala">Sinhala</option>
+                            </select>
+                        </div>
+                        <div class="w-full md:w-1/2">
+                             <label for="difficultySelect" class="block text-lighttext font-medium mb-2">Select Difficulty:</label>
+                            <select id="difficultySelect" class="w-full p-3 border-2 border-gray-600 rounded-md bg-gray-700 text-lighttext focus:outline-none focus:ring-2 focus:ring-primary">
+                                <option value="easy">Easy</option>
+                                <option value="medium">Medium</option>
+                                <option value="hard">Hard</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div id="displayText" class="mb-6 text-xl font-medium bg-gray-800 border-2 border-primary/50 rounded-lg p-6 min-h-[120px] flex flex-wrap">
+                        <span class="text-gray-400 w-full">Select Start Test to begin...</span>
+                    </div>
+
+                    <textarea
+                        id="userInput"
+                        placeholder="Start typing here..."
+                        class="w-full p-4 border-2 border-secondary/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary bg-gray-700 text-lighttext placeholder-gray-500 text-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                        rows="6"
+                        disabled
+                    ></textarea>
+
+                     <div id="liveResults" class="mt-4 text-center text-lg font-medium text-gray-400">
+                          <span id="timerDisplay">Time: 0s</span> | <span id="wpmDisplay">WPM: 0</span> | <span id="accuracyDisplay">Accuracy: 0%</span>
+                     </div>
+
+
+                    <div id="finalResults" class="mt-4 text-center hidden">
+                        </div>
+
+
+                    <div class="flex justify-center mt-6">
+                        <button
+                            id="startRestartBtn"
+                            class="bg-primary hover:bg-secondary text-white font-bold py-3 px-8 rounded-full transition duration-300 text-lg"
+                        >
+                            Start Test
+                        </button>
+                    </div>
+                </div>
+            </div>
+         </section>
+    </main>
+
+    <footer class="bg-black text-gray-500 py-8 mt-12">
+        <div class="container mx-auto px-6 text-center">
+            <div class="mb-6">
+<p class="text-gray-400 mb-4 text-lg">Follow Me</p>
+<div class="flex justify-center items-center space-x-5 md:space-x-6">
+    <a href="https://web.facebook.com/kalana.sahan.79" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-primary transition duration-300 text-2xl"><i class="fab fa-facebook"></i></a>
+    <a href="https://web.facebook.com/profile.php?id=100063671193688" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-primary transition duration-300 text-2xl"><i class="fab fa-facebook-f"></i></a>
+    <a href="https://web.facebook.com/profile.php?id=100063737644607" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-primary transition duration-300 text-2xl"><i class="fab fa-facebook-square"></i></a>
+    <a href="https://www.instagram.com/kalana._.sahan/" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-primary transition duration-300 text-2xl"><i class="fab fa-instagram"></i></a>
+    <a href="https://www.youtube.com/channel/UCseYwLFjK9jj3X0bvKjKTbQ" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-primary transition duration-300 text-2xl"><i class="fab fa-youtube"></i></a>
+    <a href="https://www.tiktok.com/@kaaligaming" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-primary transition duration-300 text-2xl"><i class="fab fa-tiktok"></i></a>
+    <a href="https://www.threads.com/@kalana._.sahan" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-primary transition duration-300 text-2xl"><i class="fab fa-threads"></i></a>
+    <a href="https://www.linkedin.com/in/" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-primary transition duration-300 text-2xl"><i class="fab fa-linkedin"></i></a>
+    <a href="https://github.com/kaali-k" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-primary transition duration-300 text-2xl"><i class="fab fa-github"></i></a>
+    </div>
+ </div>
+            <p>&copy; <span id="currentYear"></span> Kaali. All Rights Reserved.</p>
+            <p class="text-sm mt-2">Designed with <i class="fas fa-heart text-primary"></i> using Tailwind CSS & Alpine.js</p>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+    <script>
+        // Initialize AOS
+        AOS.init({
+             duration: 800, // Shorter duration for faster feel
+ once: false, // Allow animation on scroll up/down
+ offset: 50, // Trigger animations slightly sooner
+        });
+
+        // Dynamic Copyright Year
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        // Note: Typing effect script from index.html is not needed here.
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const texts = {
+                english: [
+                    "The quick brown fox jumps over the lazy dog.",
+                    "Programming is the art of telling another human what one wants the computer to do.",
+                    "Success is not final, failure is not fatal: it is the courage to continue that counts.",
+                    "Learning never exhausts the mind.",
+                    "The only way to do great work is to love what you do.",
+                    "In the digital age, typing speed is a crucial skill.",
+                    "Practice regularly to see significant improvement.",
+                    "The more you type, the faster and more accurate you become.",
+                    "Efficiency in typing can save you a lot of time.",
+                    "Mastering the keyboard unlocks new possibilities."
+                ],
+                sinhala: [
+                     "මෙය ඔබේ ටයිප් කිරීමේ වේගය පරීක්ෂා කිරීමට විශිෂ්ට කාලයක් වේ.",
+"සාර්ථකත්වය යනු තනි මොහොතක නොවේ, එය සාර්ථක වීමේ දිගු ගමනක්.",
+ "පුද්ගලයෙකුගේ සැබෑ ශක්තිය අභියෝගවලට මුහුණ දීමේ හැකියාවේ පවතී.",
+                     "ඉගෙනීම මනස වෙහෙසට පත් කරන්නේ නැත.",
+                     "මහා වැඩ කිරීමට ඇති එකම මාර්ගය ඔබ කරන දේට ආදරය කිරීමයි.",
+                     "ඩිජිටල් යුගයේ, ටයිප් කිරීමේ වේගය තීරණාත්මක කුසලතාවකි.",
+                     "නිතිපතා පුහුණු වන්න, සැලකිය යුතු දියුණුවක් දැකගත හැකිය.",
+                     "ඔබ වැඩි වැඩියෙන් ටයිප් කරන විට, ඔබ වඩා වේගවත් සහ නිවැරදි වේ.",
+                     "ටයිප් කිරීමේ කාර්යක්ෂමතාවය ඔබට බොහෝ කාලයක් ඉතිරි කර දිය හැකිය.",
+                     "යතුරු පුවරුව ප්‍රගුණ කිරීම නව හැකියාවන් විවර කරයි."
+                ]
+            };
+
+            // Difficulty multipliers (can be used to adjust score based on difficulty, or adjust text length)
+            const difficulties = {
+                easy: 1,
+                medium: 1.2, // Slightly higher multiplier
+                hard: 1.5  // Higher multiplier
+            };
+
+            const languageSelect = document.getElementById('languageSelect');
+            const difficultySelect = document.getElementById('difficultySelect');
+            const displayTextDiv = document.getElementById('displayText');
+            const userInputTextarea = document.getElementById('userInput');
+            const liveResultsDiv = document.getElementById('liveResults');
+            const finalResultsDiv = document.getElementById('finalResults');
+            const startRestartBtn = document.getElementById('startRestartBtn');
+            const timerDisplay = document.getElementById('timerDisplay');
+            const wpmDisplay = document.getElementById('wpmDisplay');
+            const accuracyDisplay = document.getElementById('accuracyDisplay');
+
+
+            let startTime, timerInterval, sampleText, isTestActive = false;
+            const WPM_FACTOR = 5; // Standard factor for WPM (characters per word)
+
+
+            // Event Listeners
+            startRestartBtn.addEventListener('click', () => {
+                 if (!isTestActive) {
+                     startTest();
+                 } else {
+                     resetTest();
+                 }
+            });
+
+            userInputTextarea.addEventListener('input', calculateSpeed);
+
+            // Reset test when language or difficulty changes
+            languageSelect.addEventListener('change', resetTest);
+            difficultySelect.addEventListener('change', resetTest);
+
+             // --- Core Functions ---
+
+            function startTest() {
+                isTestActive = true;
+                 finalResultsDiv.classList.add('hidden'); // Hide final results
+                 liveResultsDiv.classList.remove('hidden'); // Show live results
+
+                const language = languageSelect.value;
+                const difficulty = difficultySelect.value;
+
+                 // Select a random text based on language
+                sampleText = texts[language][Math.floor(Math.random() * texts[language].length)];
+
+                // Populate displayText with spans for highlighting, handling spaces
+                displayTextDiv.innerHTML = ''; // Clear previous text
+                sampleText.split('').forEach(char => {
+                    const charSpan = document.createElement('span');
+                    if (char === ' ') {
+                        // Use a non-breaking space for spaces to ensure they are rendered
+                        charSpan.innerHTML = '&nbsp;';
+                        // Optionally add a class to style spaces differently
+                        // charSpan.classList.add('text-gray-600'); // Example: Dimmer space
+                    } else {
+                         charSpan.textContent = char;
+                    }
+                    charSpan.classList.add('inline-block'); // Ensure span is treated as an inline block element
+                    displayTextDiv.appendChild(charSpan);
+                });
+
+                // Reset input and results displays
+                userInputTextarea.value = '';
+                userInputTextarea.disabled = false;
+                userInputTextarea.focus(); // Focus input to start typing
+                timerDisplay.textContent = 'Time: 0s';
+                wpmDisplay.textContent = 'WPM: 0';
+                accuracyDisplay.textContent = 'Accuracy: 0%';
+
+
+                // Start timer
+                startTime = new Date().getTime();
+                timerInterval = setInterval(updateTimer, 1000);
+
+                // Update button text
+                startRestartBtn.textContent = 'Restart Test';
+                startRestartBtn.classList.remove('bg-primary', 'hover:bg-secondary', 'bg-gray-600', 'hover:bg-gray-500'); // Remove previous styling
+                startRestartBtn.classList.add('bg-gray-600', 'hover:bg-gray-500'); // Add restart styling
+            }
+
+            function updateTimer() {
+                 if (!startTime) return; // Don't update if timer hasn't started
+                const currentTime = new Date().getTime();
+                const elapsedSeconds = Math.floor((currentTime - startTime) / 1000);
+                timerDisplay.textContent = `Time: ${elapsedSeconds}s`;
+
+                // Also update WPM and Accuracy live (optional)
+                 calculateSpeed(); // Recalculate speed and accuracy every second
+            }
+
+
+            function calculateSpeed() {
+                 if (!isTestActive) return; // Only calculate if test is active
+
+                const userInput = userInputTextarea.value;
+                const sampleChars = displayTextDiv.querySelectorAll('span'); // Get all character spans
+                let correctChars = 0;
+                let totalCharsTyped = userInput.length;
+                const sampleTextLength = sampleText.length;
+
+
+                // Highlight characters and count correct ones
+                sampleChars.forEach((charSpan, index) => {
+                    const sampleChar = sampleText[index];
+                    const typedChar = userInput[index];
+
+                    if (typedChar === undefined) {
+                        // Character not yet typed
+                        charSpan.classList.remove('correct', 'incorrect'); // Remove incorrect/correct
+                        // Optionally remove current highlight if implemented
+                        // charSpan.classList.remove('current');
+                    } else if (typedChar === sampleChar) {
+                        // Correct character
+                        charSpan.classList.add('correct');
+                        charSpan.classList.remove('incorrect');
+                        correctChars++;
+                    } else {
+                        // Incorrect character
+                        charSpan.classList.add('incorrect');
+                        charSpan.classList.remove('correct');
+                    }
+
+                    // Optional: Highlight current typing position (can be visually distracting)
+                    // if (index === userInput.length) {
+                    //      charSpan.classList.add('current');
+                    // } else {
+                    //      charSpan.classList.remove('current');
+                    // }
+                });
+
+                 // Handle extra characters typed by the user (beyond sample text length)
+                 // We don't have spans for these, but they affect accuracy calculation
+                 const extraCharsTyped = Math.max(0, totalCharsTyped - sampleTextLength);
+                 // For simplicity, we'll count total typed characters for accuracy percentage base
+
+
+                 // Calculate live WPM (based on correct characters matching sample text so far)
+                 const currentTime = new Date().getTime();
+                 const elapsedMinutes = (currentTime - startTime) / 1000 / 60;
+                 let liveWpm = 0;
+                 if (elapsedMinutes > 0) {
+                      // WPM = (Total Correct Characters / Characters per word) / Time in Minutes
+                      // Use Math.min(correctChars, totalCharsTyped) or just correctChars depending on WPM definition
+                      // Using correctChars based on sample text match
+                      liveWpm = Math.round((correctChars / WPM_FACTOR) / elapsedMinutes);
+                 }
+                 wpmDisplay.textContent = `WPM: ${liveWpm}`;
+
+
+                 // Calculate live Accuracy
+                 // Accuracy = (Correctly typed characters up to current position / Total characters typed so far) * 100
+                 let liveAccuracy = 0;
+                 if (totalCharsTyped > 0) {
+                      // Count correct characters up to the length of user input
+                     let currentPositionCorrectChars = 0;
+                     for(let i = 0; i < totalCharsTyped; i++) {
+                         if (sampleText[i] === userInput[i]) {
+                              currentPositionCorrectChars++;
+                         }
+                     }
+                      liveAccuracy = Math.round((currentPositionCorrectChars / totalCharsTyped) * 100);
+                 }
+                 accuracyDisplay.textContent = `Accuracy: ${liveAccuracy}%`;
+
+
+                // Check if the test is completed (user has typed the entire sample text correctly)
+                // Check if input length matches sample text length AND all typed chars are correct up to that length
+                if (totalCharsTyped === sampleTextLength && correctChars === sampleTextLength) {
+                    endTest();
+                }
+                 // Optional: End test when input length exceeds sample text length (user finished typing, even with errors)
+                 // else if (totalCharsTyped >= sampleTextLength && isTestActive) {
+                 //     // User has typed at least as many characters as the sample text
+                 //     // We could trigger endTest here, but checking for exact match is standard
+                 //     // If we end here, recalculate final WPM/Accuracy based on typed text vs sample text
+                 // }
+            }
+
+            function endTest() {
+                isTestActive = false;
+                clearInterval(timerInterval); // Stop the timer
+
+                const endTime = new Date().getTime();
+                const timeTakenMinutes = (endTime - startTime) / 1000 / 60; // Total time in minutes
+
+                 const userInput = userInputTextarea.value;
+                 const sampleTextLength = sampleText.length;
+                 const difficultyMultiplier = difficulties[difficultySelect.value];
+
+
+                // --- Final Score Calculation ---
+                 // Standard WPM: (Total Correct Characters / WPM_FACTOR) / Time in Minutes
+                 // Total Correct Characters: Count characters in user input that match sample text at the same position
+                 let finalCorrectChars = 0;
+                 for(let i = 0; i < Math.min(userInput.length, sampleTextLength); i++) {
+                      if (userInput[i] === sampleText[i]) {
+                           finalCorrectChars++;
+                      }
+                 }
+                 // If ending strictly on exact match, finalCorrectChars === sampleTextLength
+
+                const finalWpm = (finalCorrectChars / WPM_FACTOR) / timeTakenMinutes;
+                 // Adjust WPM with difficulty multiplier
+                 const adjustedWpm = Math.round(finalWpm * difficultyMultiplier);
+
+
+                 // Accuracy based on (Correct Characters / Total Characters Typed) * 100
+                 // This penalizes extra typed characters
+                 let finalAccuracy = 0;
+                 if (userInput.length > 0) {
+                      finalAccuracy = Math.round((finalCorrectChars / userInput.length) * 100);
+                 }
+
+
+                // Display final results
+                 liveResultsDiv.classList.add('hidden'); // Hide live results
+                 finalResultsDiv.classList.remove('hidden'); // Show final results
+                finalResultsDiv.innerHTML = `
+                    <div class="bg-green-800 border-l-4 border-green-500 p-4 rounded-md text-white">
+                        <p class="font-bold text-green-400 text-xl mb-2">🏆 Test Completed!</p>
+                        <p class="text-lg mb-1">Speed: <span class="text-secondary font-bold">${adjustedWpm} WPM</span> (Adjusted)</p>
+                        <p class="text-lg">Accuracy: <span class="text-secondary font-bold">${finalAccuracy}%</span></p>
+                        <p class="text-sm text-gray-400 mt-2">Base Speed: ${Math.round(finalWpm)} WPM | Difficulty Multiplier: ${difficultyMultiplier}x</p>
+                         <p class="text-sm text-gray-400">Time Taken: ${timeTakenMinutes.toFixed(2)} minutes</p>
+                    </div>
+                `;
+
+                // Disable input and update button
+                userInputTextarea.disabled = true;
+                startRestartBtn.textContent = 'Start New Test';
+                 startRestartBtn.classList.remove('bg-gray-600', 'hover:bg-gray-500'); // Remove restart styling
+                 startRestartBtn.classList.add('bg-primary', 'hover:bg-secondary'); // Add start styling again
+            }
+
+            function resetTest() {
+                 isTestActive = false;
+                clearInterval(timerInterval); // Stop timer if running
+                startTime = null; // Reset start time
+
+                // Clear input and results displays
+                userInputTextarea.value = '';
+                userInputTextarea.disabled = true;
+                liveResultsDiv.classList.remove('hidden'); // Ensure live results area is visible
+                 finalResultsDiv.classList.add('hidden'); // Hide final results
+
+                timerDisplay.textContent = 'Time: 0s';
+                wpmDisplay.textContent = 'WPM: 0';
+                accuracyDisplay.textContent = 'Accuracy: 0%';
+
+
+                // Reset displayText
+                 displayTextDiv.innerHTML = ''; // Clear text spans
+                 const placeholderSpan = document.createElement('span');
+                 placeholderSpan.textContent = 'Select Start Test to begin...';
+                 placeholderSpan.classList.add('text-gray-400', 'w-full', 'text-center'); // Center placeholder
+                 displayTextDiv.appendChild(placeholderSpan);
+
+
+                // Update button text and style
+                startRestartBtn.textContent = 'Start Test';
+                 startRestartBtn.classList.remove('bg-gray-600', 'hover:bg-gray-500', 'bg-primary', 'hover:bg-secondary'); // Remove all previous styling
+                 startRestartBtn.classList.add('bg-primary', 'hover:bg-secondary'); // Add start styling
+            }
+
+            // Initial setup when the page loads
+            resetTest();
+        });
+    </script>
+
+</body>
+</html>
